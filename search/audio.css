@@ -1,0 +1,141 @@
+/* --- Listening card ------------------------------------------------------- */
+
+.listen-card { padding: 22px 18px 16px; text-align: center; }
+.stage { display: grid; place-items: center; padding: 14px 0 6px; }
+
+.orb {
+  --level: 0;
+  position: relative; width: 132px; height: 132px; border-radius: 50%; border: 0;
+  display: grid; place-items: center; cursor: pointer; color: #fff;
+  background: var(--gradient-brand);
+  box-shadow: 0 14px 36px rgba(155, 77, 255, .35), inset 0 0 0 6px rgba(255, 255, 255, .12);
+  transition: transform .2s var(--ease), box-shadow .2s;
+}
+.orb:hover { transform: scale(1.04); }
+.orb:active { transform: scale(.98); }
+.orb > * { grid-area: 1 / 1; }
+.orb .mic-icon { width: 44px; height: 44px; }
+.orb .ring {
+  position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+  border: 2px solid rgba(155, 77, 255, .5); opacity: 0;
+}
+.orb .bars { display: none; align-items: center; gap: 4px; height: 52px; }
+.orb .bars i { width: 5px; height: 6px; border-radius: 3px; background: #fff; transition: height .1s; }
+.orb-cover { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+.listen-card.listening .orb { transform: scale(calc(1 + var(--level) * .08)); cursor: default; }
+.listen-card.listening .orb .mic-icon { display: none; }
+.listen-card.listening .orb .bars { display: flex; }
+.listen-card.listening .orb .ring { animation: ring 2s ease-out infinite; }
+.listen-card.listening .orb .ring + .ring { animation-delay: 1s; }
+@keyframes ring { from { transform: scale(1); opacity: .9; } to { transform: scale(1.7); opacity: 0; } }
+.listen-card.found .orb { box-shadow: 0 14px 36px rgba(0, 0, 0, .25); }
+.listen-card.found .orb .mic-icon { display: none; }
+
+.listen-title { margin: 14px 0 2px; font-size: 18px; font-weight: 750; letter-spacing: -0.01em; }
+.listen-sub { margin: 0 auto; max-width: 300px; color: var(--muted); font-size: 13px; min-height: 2.9em; }
+
+.listening-ui { margin-top: 14px; }
+.progress { height: 4px; border-radius: 4px; background: var(--surface-2); overflow: hidden; }
+.progress div { height: 100%; width: 0; background: var(--gradient-audio); transition: width .1s linear; }
+.listen-actions { display: flex; gap: 8px; justify-content: center; margin-top: 12px; }
+
+.listen-card .meta { text-align: left; }
+.listen-card .meta dd img { width: 14px; height: 14px; vertical-align: -2px; margin-right: 6px; }
+.listen-card .drop-hint { text-align: left; }
+.listen-card .drop-hint b { color: var(--text); font-weight: 600; }
+
+/* --- Identified song ------------------------------------------------------- */
+
+.track-card {
+  position: relative; overflow: hidden; margin-bottom: 20px; padding: 20px;
+  display: grid; grid-template-columns: 168px 1fr; gap: 22px; align-items: center;
+  animation: rise .45s var(--ease);
+}
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+.track-backdrop {
+  position: absolute; inset: -40px; z-index: 0; opacity: .22;
+  background-size: cover; background-position: center; filter: blur(40px) saturate(1.6);
+}
+.track-card > :not(.track-backdrop) { position: relative; }
+.track-cover {
+  width: 168px; height: 168px; border-radius: 14px; object-fit: cover;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .3); background: var(--surface-2);
+}
+.track-info { min-width: 0; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 700; color: var(--success); text-transform: uppercase; letter-spacing: .06em;
+}
+.eyebrow svg { width: 14px; height: 14px; }
+.eyebrow.unsure { color: #d9822b; }
+.eyebrow.unsure svg { display: none; }
+
+/* Other songs matched while listening: one click to switch. */
+.alt-card { padding: 14px 16px; margin: -8px 0 20px; }
+.alt-note { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
+.alt-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.alt-list button {
+  display: inline-flex; align-items: center; gap: 8px; max-width: 100%;
+  padding: 5px 12px 5px 5px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text); font-size: 13px;
+}
+.alt-list button:hover { border-color: var(--accent); }
+.alt-list img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
+.alt-list span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.track-card h1 { font-size: 28px; line-height: 1.15; margin: 6px 0 2px; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.track-artist { margin: 0; font-size: 17px; font-weight: 600; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.chips:empty { display: none; }
+.track-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 16px; }
+
+@media (max-width: 640px) {
+  .track-card { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+  .track-cover { width: 200px; height: 200px; }
+  .chips, .track-actions, .services { justify-content: center; }
+}
+
+.lyrics-card { margin-bottom: 20px; padding: 0; }
+.lyrics-card summary {
+  padding: 14px 18px; cursor: pointer; font-weight: 700; list-style: none;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.lyrics-card summary::after { content: "Afficher"; font-weight: 600; font-size: 13px; color: var(--accent); }
+.lyrics-card[open] summary::after { content: "Masquer"; }
+.lyrics-source { margin: 0; padding: 0 18px 14px; font-size: 12px; color: var(--muted); }
+.lyrics-source:empty { display: none; }
+.lyrics { padding: 0 18px 18px; white-space: pre-line; color: var(--muted); line-height: 1.7; max-height: 420px; overflow: auto; }
+
+/* --- What was heard ---------------------------------------------------------- */
+
+.heard {
+  margin: 12px 0 14px; padding: 12px 14px; border-radius: 12px;
+  border-left: 3px solid var(--accent-3); background: var(--surface-2);
+  display: grid; gap: 4px;
+}
+.heard-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--accent-3); }
+.heard p { margin: 0; font-size: 15px; font-style: italic; }
+.heard .btn { justify-self: start; padding: 4px 8px; margin-left: -8px; color: var(--accent); }
+
+.suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.suggestions:empty { display: none; }
+.suggestions button {
+  border: 1px dashed var(--border); background: transparent; color: var(--text);
+  padding: 5px 12px; border-radius: 999px; font-size: 13px; cursor: pointer;
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.suggestions button:hover { border-color: var(--accent); color: var(--accent); }
+
+/* --- How it works ------------------------------------------------------------ */
+
+.how { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+@media (max-width: 760px) { .how { grid-template-columns: 1fr; } }
+.how-item {
+  padding: 16px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface);
+}
+.how-icon {
+  display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; margin-bottom: 10px;
+  background: var(--accent-soft); color: var(--accent);
+}
+.how-icon svg { width: 19px; height: 19px; }
+.how-item p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }

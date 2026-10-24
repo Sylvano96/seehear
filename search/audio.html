@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seehear — Sound</title>
+  <link rel="icon" href="../icons/icon32.png">
+  <link rel="stylesheet" href="../styles/theme.css">
+  <link rel="stylesheet" href="search.css">
+  <link rel="stylesheet" href="audio.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="../icons/icon128.png" alt=""> <span class="brand-name">Seehear</span> <small>Everything you see and hear</small></div>
+    <nav class="nav" aria-label="Search type">
+      <a href="search.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>Image</a>
+      <a href="audio.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></svg>Sound</a>
+    </nav>
+    <span></span>
+  </header>
+
+  <main class="layout">
+    <section class="card listen-card" id="listenCard">
+      <div class="stage">
+        <button class="orb" id="micBtn" type="button" aria-label="Listen with the microphone">
+          <span class="ring"></span><span class="ring"></span>
+          <svg class="mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><path d="M12 18v4"/></svg>
+          <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <img class="orb-cover" id="orbCover" alt="" hidden>
+        </button>
+      </div>
+      <p class="listen-title" id="listenTitle">Tap to listen</p>
+      <p class="listen-sub" id="listenSub">Let it hear a song, or say what you're looking for.</p>
+
+      <div class="listening-ui" id="listeningUi" hidden>
+        <div class="progress"><div id="progressBar"></div></div>
+        <div class="listen-actions">
+          <button class="btn primary audio" id="finishBtn" type="button">Finish</button>
+          <button class="btn" id="cancelBtn" type="button">Cancel</button>
+        </div>
+      </div>
+
+      <dl class="meta" id="meta"></dl>
+      <div class="actions" id="clipActions" hidden>
+        <button class="btn" id="playBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5Z"/></svg>
+          <span>Replay the clip</span>
+        </button>
+        <button class="btn" id="retryBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+          Retry
+        </button>
+      </div>
+      <p class="drop-hint">
+        To identify the sound of a page (Facebook, YouTube, Instagram…), open it, click the Seehear icon,
+        then <b>“Identify what's playing”</b><span id="listenKeyHint"></span>.
+      </p>
+    </section>
+
+    <section class="results">
+      <article class="card track-card" id="trackCard" hidden>
+        <div class="track-backdrop" id="trackBackdrop"></div>
+        <img class="track-cover" id="trackCover" alt="">
+        <div class="track-info">
+          <span class="eyebrow" id="trackEyebrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span id="trackEyebrowText">Song identified</span>
+          </span>
+          <h1 id="trackTitle"></h1>
+          <p class="track-artist" id="trackArtist"></p>
+          <div class="chips" id="trackChips"></div>
+          <div class="track-actions">
+            <button class="btn primary audio" id="previewBtn" type="button" hidden>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5Z"/></svg>
+              <span>Play preview</span>
+            </button>
+            <div class="services" id="trackLinks"></div>
+          </div>
+        </div>
+      </article>
+
+      <div class="card alt-card" id="altCard" hidden>
+        <p class="alt-note" id="altNote"></p>
+        <div class="alt-list" id="altList"></div>
+      </div>
+
+      <details class="card lyrics-card" id="lyricsCard" hidden>
+        <summary>Lyrics</summary>
+        <div class="lyrics" id="lyrics"></div>
+        <p class="lyrics-source" id="lyricsSource"></p>
+      </details>
+
+      <div class="card insight-card">
+        <h2 id="searchTitle">Search what you heard</h2>
+        <blockquote class="heard" id="heard" hidden>
+          <span class="heard-label">Heard</span>
+          <p id="heardText"></p>
+          <button class="btn ghost" id="heardBtn" type="button">Search this phrase</button>
+        </blockquote>
+        <form class="insight-query" id="queryForm">
+          <span class="insight-status" id="insightStatus">Start listening, or type what you're looking for.</span>
+          <div class="query-row">
+            <input id="queryInput" type="search" placeholder="Title, artist, lyrics…" autocomplete="off">
+            <button class="btn primary" type="submit" id="queryBtn">Search</button>
+          </div>
+        </form>
+        <div class="suggestions" id="suggestions"></div>
+        <div class="quick-links" id="quickLinks"></div>
+        <div class="videos-head" id="videosHead" hidden>
+          <h3>YouTube videos</h3>
+          <a id="ytMore" target="_blank" rel="noopener">More on YouTube</a>
+        </div>
+        <div class="videos" id="videos"></div>
+      </div>
+
+      <div class="card social-card" id="socialCard" hidden>
+        <div class="social-head">
+          <div>
+            <h2>On social media</h2>
+            <p class="sub">What's going around right now for this search.</p>
+          </div>
+          <div class="services" id="socialLinks"></div>
+        </div>
+        <h3 class="row-title">Popular Shorts <span class="chip">TikTok · Reels · Shorts</span></h3>
+        <div class="rail" id="shortsRail">
+          <button class="rail-btn prev" type="button" aria-label="Previous Shorts">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="shorts" id="shorts"></div>
+          <button class="rail-btn next" type="button" aria-label="Next Shorts">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+        <h3 class="row-title">New this week</h3>
+        <div class="videos" id="recent"></div>
+      </div>
+
+      <div class="how" id="howCard">
+        <div class="how-item">
+          <span class="how-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="m10 9 5 2-5 2Z"/></svg></span>
+          <strong>A tab's sound</strong>
+          <p>A song in a Facebook, YouTube or Instagram video: Seehear listens to it directly, no microphone needed, and the sound keeps playing.</p>
+        </div>
+        <div class="how-item">
+          <span class="how-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><path d="M12 18v4"/></svg></span>
+          <strong>The microphone</strong>
+          <p>Radio, TV, a shop: bring your computer close to the sound. Or speak: “song that goes I still love you”.</p>
+        </div>
+        <div class="how-item">
+          <span class="how-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+          <strong>The results</strong>
+          <p>Title and artist with Spotify, Deezer, YouTube links… If the song isn't recognized, the lyrics heard are used to find it.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <audio id="previewAudio" preload="none"></audio>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="audio.js"></script>
+</body>
+</html>

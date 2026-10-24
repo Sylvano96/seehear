@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "Seehear",
+  "short_name": "Seehear",
+  "version": "1.11.0",
+  "description": "Identify everything you see and hear: any image on screen, the music playing in a tab, or a voice search.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Seehear",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "contextMenus",
+    "declarativeNetRequest",
+    "tabCapture",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "https://www.bing.com/*",
+    "https://yandex.com/*",
+    "https://www.youtube.com/*",
+    "https://amp.shazam.com/*",
+    "https://api.deezer.com/*",
+    "https://lrclib.net/*"
+  ],
+  "commands": {
+    "start-capture": {
+      "suggested_key": {
+        "default": "Alt+Shift+S"
+      },
+      "description": "Capture an area of the screen and search it"
+    },
+    "listen-tab": {
+      "suggested_key": {
+        "default": "Alt+Shift+A"
+      },
+      "description": "Identify the music playing in the tab"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; base-uri 'none'"
+  }
+}

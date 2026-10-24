@@ -1,0 +1,13 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+
+# Packaged extension and its signing key (never commit the .pem)
+*.zip
+*.crx
+*.pem

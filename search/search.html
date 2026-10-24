@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seehear — Image</title>
+  <link rel="icon" href="../icons/icon32.png">
+  <link rel="stylesheet" href="../styles/theme.css">
+  <link rel="stylesheet" href="search.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="../icons/icon128.png" alt=""> <span class="brand-name">Seehear</span> <small>Everything you see and hear</small></div>
+    <nav class="nav" aria-label="Search type">
+      <a href="search.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>Image</a>
+      <a href="audio.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></svg>Sound</a>
+    </nav>
+    <button class="btn" id="replaceBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></svg>
+      New image
+    </button>
+    <input type="file" id="fileInput" accept="image/*" hidden>
+  </header>
+
+  <main class="layout">
+    <section class="card preview-card">
+      <div class="preview" id="preview">
+        <div class="placeholder" id="placeholder">Loading the image…</div>
+        <img id="previewImg" alt="Image to search" hidden>
+      </div>
+      <dl class="meta" id="meta"></dl>
+      <p class="notice" id="notice" hidden></p>
+      <div class="actions">
+        <button class="btn" id="downloadBtn" type="button" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+          Download
+        </button>
+        <button class="btn" id="copyBtn" type="button" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <p class="drop-hint">Tip: paste (Ctrl+V) or drop an image anywhere on this page to replace it.</p>
+    </section>
+
+    <section class="results">
+      <div class="section-head">
+        <div>
+          <h1>Find the image source</h1>
+          <p class="sub">Each engine opens in a new tab with your image.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn primary" id="allBtn" type="button" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            Search everywhere
+          </button>
+        </div>
+      </div>
+
+      <div class="engines" id="engines"></div>
+    </section>
+  </main>
+
+  <div class="drop-overlay" id="dropOverlay" hidden>Drop the image here</div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="search.js"></script>
+</body>
+</html>

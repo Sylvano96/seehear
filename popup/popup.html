@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles/theme.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="brand">
+    <img src="../icons/icon128.png" alt="">
+    <span><span class="brand-name">Seehear</span> <small>Everything you see and hear</small></span>
+  </header>
+
+  <section class="group">
+    <h2>See</h2>
+    <button class="big-action" id="captureBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg>
+      <span>
+        <strong>Capture an area</strong>
+        <small>Frame an image on the page</small>
+      </span>
+      <kbd id="captureKey">Alt+Shift+S</kbd>
+    </button>
+    <label class="tile dropzone" id="dropzone" tabindex="0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>
+      <span>
+        <strong>Import an image</strong>
+        <small>Click, drop or paste (Ctrl+V)</small>
+      </span>
+      <input type="file" id="fileInput" accept="image/*" class="visually-hidden">
+    </label>
+  </section>
+
+  <section class="group">
+    <h2>Hear</h2>
+    <button class="big-action audio" id="listenBtn" type="button">
+      <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span>
+        <strong id="listenLabel">Identify what's playing</strong>
+        <small id="listenHint">The music playing on this page</small>
+      </span>
+      <kbd id="listenKey">Alt+Shift+A</kbd>
+    </button>
+    <button class="tile" id="micBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><path d="M12 18v4"/></svg>
+      <span>
+        <strong>Search with the mic</strong>
+        <small>Let it hear a song, or say what you're looking for</small>
+      </span>
+    </button>
+  </section>
+
+  <p class="error" id="error" role="alert" hidden></p>
+  <p class="foot">Tip: right-click an image → “Search this image with Seehear”.</p>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
